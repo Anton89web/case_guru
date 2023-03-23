@@ -1,0 +1,21 @@
+.detail__wrapper{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 50px;
+    align-items: center;
+}
+
+.card__content{
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    padding: 0 0 0 30px ;
+}
+
+.detail__img{
+    border: solid 1px #f5f1f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+}
