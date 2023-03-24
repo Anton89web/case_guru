@@ -2,7 +2,7 @@ import {makeAutoObservable} from "mobx";
 
 
 class Filters {
-    categories = [
+    categories: string[] = [
         'all',
         'biography',
         'computers',
@@ -11,20 +11,20 @@ class Filters {
         'poetry',
     ]
 
-    sorting = [
+    sorting: string[] = [
         'relevance',
         'newest',
     ]
 
-    categorieActive = 'all'
-    sortingActive = 'relevance'
+    categoryActive: string = 'all'
+    sortingActive: string = 'relevance'
 
     constructor() {
         makeAutoObservable(this)
     }
 
-    changeCategories (categorie: string) {
-        this.categorieActive = categorie
+    changeCategories (category: string) {
+        this.categoryActive = category
     }
 
     changeSorting (sort: string){

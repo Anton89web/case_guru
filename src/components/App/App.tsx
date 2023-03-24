@@ -1,17 +1,22 @@
 import React, {FC} from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
-import {Header} from "./components/Header/Header";
-import HomePage from "./pages/HomePage";
-import DetailProduct from "./pages/DetailPage";
+import {Header} from "../Header/Header";
+import HomePage from "../../pages/HomePage";
+import DetailProduct from "../../pages/DetailPage";
 
-const App: FC = ()=> {
+function Page404() {
+    return null;
+}
+
+const App: FC = (): JSX.Element => {
   return (
     <>
       <Header/>
         <Routes>
             <Route path={''} element={<HomePage/>}/>
             <Route path={'book'} element={<DetailProduct/>}/>
+            <Route path={'404'} element={<Page404/>}/>
         </Routes>
     </>
   );

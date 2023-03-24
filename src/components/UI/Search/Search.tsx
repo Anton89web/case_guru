@@ -2,20 +2,26 @@ import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
-import {FC, useRef, useState} from "react";
+import {FC, useState} from "react";
 import * as React from "react";
+import {searchStore} from "../../../stores/search";
+import {FetchData} from "../../../api/apiGetProducts";
+import {productsStore} from "../../../stores/products";
+import styles from "./Search.module.css"
 
-const Search: FC = ()=> {
+const Search: FC = (): JSX.Element => {
     const [searchText, setSearchText] = useState<string>('');
-    const ref = useRef<HTMLInputElement>(null)
-
+    const [valid, setValid] = useState<boolean>(false);
 
     const SearchData = () => {
-        // ref.current?.focus()
-        console.log(searchText)
-        console.log("Search...")
-        setSearchText('')
-
+        searchStore.setSearch(searchText)
+        if (searchStore.search){
+            setValid(false)
+            productsStore.setLoading(true)
+            FetchData(0, productsStore.addNewProduct)
+        } else {
+            setValid(true)
+        }
     }
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement >)=> {
@@ -26,12 +32,13 @@ const Search: FC = ()=> {
     }
 
     return (
+        <>{valid &&
+        <span className={styles.valid}>Введите название книги!!</span>}
         <Paper
             component="form"
             sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 600, margin: '0 auto' }}
         >
             <InputBase
-                ref={ref}
                 sx={{ ml: 1, flex: 1 }}
                 placeholder="Book name"
                 inputProps={{ 'aria-label': 'search google books' }}
@@ -39,12 +46,14 @@ const Search: FC = ()=> {
                 onKeyDown={(e) => handleKeyDown(e)}
                 value={searchText}
             />
-            <IconButton type={'button'} sx={{ p: '10px' }} aria-label="search">
-                <SearchIcon
-                    onClick={()=> SearchData()}
-                />
+            <IconButton onClick={()=> SearchData()}
+                        type={'button'}
+                        sx={{ p: '10px' }}
+                        aria-label="search">
+                <SearchIcon/>
             </IconButton>
         </Paper>
+        </>
     );
 }
 

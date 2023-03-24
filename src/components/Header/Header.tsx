@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, {FC} from 'react';
 import styles from './Header.module.css'
 import Search from "../UI/Search/Search";
 import SelectLabels from "../UI/Select/SelectLabels";
@@ -8,7 +8,7 @@ import {observer} from "mobx-react-lite";
 
 
 
-const HeaderComponent: FC = () => {
+const HeaderComponent: FC = (): JSX.Element => {
     return (
         <div className={styles.header}>
             <div className={'container'}>
@@ -20,7 +20,7 @@ const HeaderComponent: FC = () => {
                     <SelectLabels
                         label={'Categories'}
                         values={filtersStore.categories}
-                        activeValue={filtersStore.categorieActive}
+                        activeValue={filtersStore.categoryActive}
                         changeValue={filtersStore.changeCategories}
                     />
                     <SelectLabels

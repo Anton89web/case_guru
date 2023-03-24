@@ -6,38 +6,36 @@ import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import {useNavigate} from "react-router-dom"
 import {FC} from "react";
+import {productsStore} from "../../stores/products";
+import {CardProductProps} from "./CardProduct.props";
 
 
-interface Book  {
-    img: string
-    title: string
-    authors: string []
-    category: string []
-}
-
- const CardProduct: FC<Book> = ({img, title, authors, category})=> {
+ const CardProduct: FC<CardProductProps> = ({img, title, authors, category, etag}): JSX.Element => {
     const navigate = useNavigate()
 
     return (
-            <Card sx={{ width: 250 }}
-            onClick={()=> navigate(`/book`)}
+            <Card sx={{ width: 280 }}
+            onClick={()=>{
+                navigate(`/book`)
+                productsStore.addDetailProduct(etag)
+            }}
             >
                 <CardActionArea>
                     <CardMedia
                         component="img"
                         height="180"
-                        image={img}
+                        image={img || "img/no_foto.png"}
                         alt="image"
                     />
                     <CardContent>
                         <Typography variant="body2" color="text.secondary">
                             {category? category[0] : ''}
                         </Typography>
-                        <Typography gutterBottom variant="h5" component="div">
+                        <Typography gutterBottom variant="h6" component="div">
                             {title? title : ''}
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
-                            {authors? authors : 0}
+                            {authors? authors?.join(", ") : ''}
                         </Typography>
                     </CardContent>
                 </CardActionArea>

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {FC} from 'react';
 import DetailProduct from "../components/DetailProduct/DetailProduct";
 
-const Home = () => {
+const Home: FC = (): JSX.Element => {
     return (
         <div>
             <DetailProduct/>

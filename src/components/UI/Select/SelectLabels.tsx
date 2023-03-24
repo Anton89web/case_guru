@@ -5,9 +5,12 @@ import styles from "./SelectLabels.module.css"
 import Select from '@mui/material/Select';
 import {SelectLabelsProps} from "./SelectLabels.props";
 import {filtersStore} from "../../../stores/filters";
+import {FetchData} from "../../../api/apiGetProducts";
+import {productsStore} from "../../../stores/products";
+import {searchStore} from "../../../stores/search";
 
 
-const SelectLabels = ({label, activeValue, values, changeValue  }: SelectLabelsProps): JSX.Element=> {
+const SelectLabels = ({label, activeValue, values, changeValue }: SelectLabelsProps): JSX.Element=> {
 
     return (
         <div className={styles.select}>
@@ -15,7 +18,12 @@ const SelectLabels = ({label, activeValue, values, changeValue  }: SelectLabelsP
             <FormControl sx={{ m: 1, minWidth: 180, backgroundColor: "white", borderRadius: 1 }}>
                 <Select
                     value={activeValue}
-                    onChange={e => changeValue.call(filtersStore, e.target.value)}
+                    onChange={e =>{
+                        changeValue.call(filtersStore, e.target.value)
+                        if (searchStore.search){
+                            FetchData(0, productsStore.addNewProduct)
+                        }
+                    }}
                 >
                     {values.map(value =>
                         <MenuItem value={value} key={value}>

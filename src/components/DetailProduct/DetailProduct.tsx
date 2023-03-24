@@ -3,19 +3,14 @@ import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import styles from "./DetailProduct.module.css"
-import Paper from '@mui/material/Paper';
-import { styled } from '@mui/material/styles';
+import {productsStore} from "../../stores/products";
+import {Product} from "../../Interfaces/ProductInterface";
 
 
-const DetailProduct : FC = () => {
-    const Item = styled(Paper)(({ theme }) => ({
-        ...theme.typography.body2,
-        textAlign: 'left',
-        padding: 15,
-        color: theme.palette.text.secondary,
-        height: 50,
-        lineHeight: '50px',
-    }));
+const DetailProduct: FC = (): JSX.Element => {
+        const [obj]: Omit<Product, 'id'|'etag'>[] = productsStore?.detailProduct
+        const {volumeInfo: {imageLinks, title, authors, categories, description}} = obj
+
     return (
         <div>
             <div className="container">
@@ -24,22 +19,22 @@ const DetailProduct : FC = () => {
                         className={styles.detail__img}
                         component="img"
                         height="280"
-                        image="/img/content.jpeg"
+                        image= {imageLinks?.thumbnail ? imageLinks.thumbnail : "img/no_foto.png"}
                         alt="image"
                     />
                     <CardContent className={styles.card__content}>
                         <Typography variant="body2" color="text.secondary">
-                            {'Category'}
+                            {categories?.join(', ') || ''}
                         </Typography>
                         <Typography gutterBottom variant="h5" component="div">
-                            {'Name book'}
+                            {title || ''}
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
-                            {"Autors"}
+                            {authors?.join(', ') || ''}
                         </Typography>
-                        <Item elevation={1}>
-                            "Описание"
-                        </Item>
+                        <div style={{lineHeight: '25px'}}>
+                            {description || ""}
+                        </div>
                     </CardContent>
                 </div>
             </div>
