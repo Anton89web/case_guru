@@ -3,9 +3,11 @@ import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import {useEffect, useState} from "react";
+import {FC, useState} from "react";
+import {productsStore} from "../../../stores/products";
+import {observer} from "mobx-react-lite";
+import {searchStore} from "../../../stores/search";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -19,34 +21,32 @@ const style = {
     p: 4,
 };
 
-export default function TransitionsModal() {
-    const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
 
-    useEffect(()=>{
-        setOpen(!open)
-    }, [])
+const  TransitionsModalC: FC = (): JSX.Element => {
+
+    const handleClose = () => {
+        productsStore.emptySearch(false)
+    };
 
     return (
         <div>
             <Modal
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
-                open={open}
+                open={productsStore.empty}
                 onClose={handleClose}
                 closeAfterTransition
-                slots={{ backdrop: Backdrop }}
+                slots={{backdrop: Backdrop }}
                 slotProps={{
                     backdrop: {
                         timeout: 500,
                     },
                 }}
             >
-                <Fade in={open}>
+                <Fade in={productsStore.empty}>
                     <Box sx={style}>
                         <Typography id="transition-modal-title" variant="h6" component="h2">
-                            Книги по Вашему запросу не найдены
+                            {searchStore.errorServer? 'Ошибка получения данных c сервера' : 'Книги по Вашему запросу не найдены'}
                         </Typography>
                         <Typography id="transition-modal-description" sx={{ mt: 2 }}>
                         </Typography>
@@ -56,3 +56,5 @@ export default function TransitionsModal() {
         </div>
     );
 }
+
+export  const TransitionsModal = observer(TransitionsModalC)

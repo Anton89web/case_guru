@@ -1,5 +1,5 @@
 import Button from '@mui/material/Button';
-import {FetchData} from "../../../api/apiGetProducts";
+import {fetchData} from "../../../api/apiGetProducts";
 import { productsStore } from '../../../stores/products';
 
 
@@ -8,7 +8,7 @@ const Btn = ()=> {
         <div style={{display: 'flex', justifyContent: 'center', alignItems: "center"}}>
             <Button
                 onClick={() =>{
-                    FetchData(30, productsStore.addProduct)}
+                    fetchData(30, productsStore.addProduct)}
                 }
                 variant="outlined">Load more</Button>
         </div>

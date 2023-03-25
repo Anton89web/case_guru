@@ -5,20 +5,23 @@ import SearchIcon from '@mui/icons-material/Search';
 import {FC, useState} from "react";
 import * as React from "react";
 import {searchStore} from "../../../stores/search";
-import {FetchData} from "../../../api/apiGetProducts";
+import {fetchData} from "../../../api/apiGetProducts";
 import {productsStore} from "../../../stores/products";
 import styles from "./Search.module.css"
+import {useNavigate} from "react-router-dom";
 
 const Search: FC = (): JSX.Element => {
     const [searchText, setSearchText] = useState<string>('');
     const [valid, setValid] = useState<boolean>(false);
+    const navigate = useNavigate()
 
     const SearchData = () => {
         searchStore.setSearch(searchText)
         if (searchStore.search){
+            navigate('/')
             setValid(false)
             productsStore.setLoading(true)
-            FetchData(0, productsStore.addNewProduct)
+            fetchData(0, productsStore.addNewProduct)
         } else {
             setValid(true)
         }

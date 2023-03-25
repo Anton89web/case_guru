@@ -5,6 +5,7 @@ import {Product} from "../Interfaces/ProductInterface"
 class Products {
     loadingProducts: boolean = false
     foundResults: number = 0
+    empty = false
     products: Product[] = []
     detailProduct: Product[] = [{
         id: '',
@@ -44,6 +45,11 @@ class Products {
     setLoading(boolean: boolean){
         this.loadingProducts = boolean
     }
+
+    emptySearch(flag: boolean){
+        this.empty = flag
+}
+
 
 }
 

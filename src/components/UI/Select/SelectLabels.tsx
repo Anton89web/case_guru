@@ -5,7 +5,7 @@ import styles from "./SelectLabels.module.css"
 import Select from '@mui/material/Select';
 import {SelectLabelsProps} from "./SelectLabels.props";
 import {filtersStore} from "../../../stores/filters";
-import {FetchData} from "../../../api/apiGetProducts";
+import {fetchData} from "../../../api/apiGetProducts";
 import {productsStore} from "../../../stores/products";
 import {searchStore} from "../../../stores/search";
 
@@ -21,7 +21,7 @@ const SelectLabels = ({label, activeValue, values, changeValue }: SelectLabelsPr
                     onChange={e =>{
                         changeValue.call(filtersStore, e.target.value)
                         if (searchStore.search){
-                            FetchData(0, productsStore.addNewProduct)
+                            fetchData(0, productsStore.addNewProduct)
                         }
                     }}
                 >

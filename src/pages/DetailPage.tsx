@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import DetailProduct from "../components/DetailProduct/DetailProduct";
 
-const Home: FC = (): JSX.Element => {
+const DetailPage: FC = (): JSX.Element => {
     return (
         <div>
             <DetailProduct/>
@@ -9,4 +9,4 @@ const Home: FC = (): JSX.Element => {
     );
 };
 
-export default Home;
+export default DetailPage;

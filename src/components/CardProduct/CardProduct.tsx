@@ -16,7 +16,7 @@ import {CardProductProps} from "./CardProduct.props";
     return (
             <Card sx={{ width: 280 }}
             onClick={()=>{
-                navigate(`/book`)
+                navigate(`/book/${title}`)
                 productsStore.addDetailProduct(etag)
             }}
             >
